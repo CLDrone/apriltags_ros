@@ -13,7 +13,7 @@
       <param name="video_mode" value="uncompressed"/> <!-- or yuyv/nv12/jpeg -->
       <param name="frame_rate" value="60"/>
      
-      <param name="camera_info_url" value="file:///home/amax/.ros/camera_info/usb_6mm_camera.yaml"/>
+      <param name="camera_info_url" value="file:///home/odroid/.ros/camera_info/usb_6mm_camera.yaml"/>
 
       <param name="auto_exposure" value="3"/> <!-- use aperture_priority auto exposure -->
       
