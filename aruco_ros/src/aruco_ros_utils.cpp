@@ -14,9 +14,15 @@ aruco::CameraParameters aruco_ros::rosCameraInfo2ArucoCamParams(const sensor_msg
     if ( useRectifiedParameters )
     {
       cameraMatrix.setTo(0);
-      cameraMatrix.at<float>(0,0) = cam_info.P[0];   cameraMatrix.at<float>(0,1) = cam_info.P[1];   cameraMatrix.at<float>(0,2) = cam_info.P[2];
-      cameraMatrix.at<float>(1,0) = cam_info.P[4];   cameraMatrix.at<float>(1,1) = cam_info.P[5];   cameraMatrix.at<float>(1,2) = cam_info.P[6];
-      cameraMatrix.at<float>(2,0) = cam_info.P[8];   cameraMatrix.at<float>(2,1) = cam_info.P[9];   cameraMatrix.at<float>(2,2) = cam_info.P[10];
+      cameraMatrix.at<float>(0,0) = cam_info.K[0];   
+	  cameraMatrix.at<float>(0,1) = cam_info.K[1];   
+	  cameraMatrix.at<float>(0,2) = cam_info.K[2];
+      cameraMatrix.at<float>(1,0) = cam_info.K[3];   
+	  cameraMatrix.at<float>(1,1) = cam_info.K[4];   
+	  cameraMatrix.at<float>(1,2) = cam_info.K[5];
+      cameraMatrix.at<float>(2,0) = cam_info.K[6];   
+	  cameraMatrix.at<float>(2,1) = cam_info.K[7];   
+	  cameraMatrix.at<float>(2,2) = cam_info.K[8];
 
       for(int i=0; i<4; ++i)
         distorsionCoeff.at<float>(i, 0) = 0;

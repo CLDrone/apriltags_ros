@@ -162,13 +162,24 @@ public:
         markers.clear();
         //Ok, let's detect
         mDetector.detect(inImage, markers, camParam, marker_size, false);
+		
+		//ROS_INFO("x: %0.3f y: %0.3f z: %0.3f", markers[0].Tvec.at<float>(0,0), markers[0].Tvec.at<float>(0,1), markers[0].Tvec.at<float>(0,2));	
+		
         //for each marker, draw info and its boundaries in the image
         for(size_t i=0; i<markers.size(); ++i)
         {
           // only publishing the selected marker
           if(markers[i].id == marker_id)
           {
+		  // by Weiwei
+			//ROS_INFO("x: %0.3f y: %0.3f z: %0.3f", markers[i].Tvec.at<float>(0,0), markers[i].Tvec.at<float>(0,1), markers[i].Tvec.at<float>(0,2));		
+			// 
+			
             tf::Transform transform = aruco_ros::arucoMarker2Tf(markers[i]);
+			
+			
+						
+			
             tf::StampedTransform cameraToReference;
             cameraToReference.setIdentity();
 
@@ -188,6 +199,7 @@ public:
                                                   reference_frame, marker_frame);
             br.sendTransform(stampedTransform);
             geometry_msgs::PoseStamped poseMsg;
+			
             tf::poseTFToMsg(transform, poseMsg.pose);
             poseMsg.header.frame_id = reference_frame;
             poseMsg.header.stamp = curr_stamp;
@@ -251,12 +263,13 @@ public:
     // handle cartesian offset between stereo pairs
     // see the sensor_msgs/CamaraInfo documentation for details
     rightToLeft.setIdentity();
-    rightToLeft.setOrigin(
+    /*rightToLeft.setOrigin(
         tf::Vector3(
             -msg.P[3]/msg.P[0],
             -msg.P[7]/msg.P[5],
             0.0));
-
+	*/
+	rightToLeft.setOrigin(tf::Vector3(0,0,0));
     cam_info_received = true;
     cam_info_sub.shutdown();
   }
